@@ -14,13 +14,30 @@ export interface QuoteItem {
 }
 
 export interface BriefingAnswers {
-  rubro: string;
-  publico_objetivo: string;
+  // Bloque A: Diagnóstico del Negocio y Objetivo
+  nombre_negocio: string;
+  productos_servicios: string;
+  objetivo_principal: string;
+  cliente_ideal_problema: string;
+  referencias_urls: string;
+
+  // Bloque B: Alcance y Funcionalidades
+  tipo_proyecto: string;
+  integraciones: string[];
+  autoadministracion: string;
+
+  // Bloque C: Material y Contenidos
   estado_logo: string;
-  estado_contenido: string;
-  dominio: string;
+  redaccion_fotos: string;
+  dominio_hosting: string;
+
+  // Campos de compatibilidad
+  rubro?: string;
+  publico_objetivo?: string;
+  referencias?: string;
+  dominio?: string;
+  estado_contenido?: string;
   cantidad_productos?: string;
-  referencias: string;
   notas_adicionales?: string;
 }
 

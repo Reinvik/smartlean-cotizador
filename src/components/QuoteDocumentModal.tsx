@@ -354,42 +354,97 @@ export const QuoteDocumentModal: React.FC<QuoteDocumentModalProps> = ({
             marginBottom: '12px',
           }}
         >
-          2. Especificaciones Levantadas en el Briefing
+          2. Especificaciones Levantadas en el Briefing de Alcance
         </h3>
 
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            display: 'flex',
+            flexDirection: 'column',
             gap: '12px',
             border: '1px solid #e2e8f0',
             borderRadius: '12px',
-            padding: '16px',
+            padding: '18px 20px',
             marginBottom: '26px',
+            background: '#fafafa',
             fontSize: '13px',
           }}
         >
+          {/* Bloque A */}
           <div>
-            <strong>Objetivo del Proyecto:</strong> {quote.project_objective || 'Por detallar en reunión inicial'}
+            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>
+              Bloque A: Diagnóstico del Negocio y Objetivo
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px' }}>
+              <div>
+                <strong>Negocio y Productos/Servicios:</strong>{' '}
+                {quote.briefing_answers?.nombre_negocio || quote.company_name || 'No especificado'} -{' '}
+                {quote.briefing_answers?.productos_servicios || quote.briefing_answers?.rubro || 'Servicios generales'}
+              </div>
+              <div>
+                <strong>Objetivo Principal:</strong>{' '}
+                {quote.briefing_answers?.objetivo_principal || quote.project_objective || 'Captar clientes'}
+              </div>
+              <div>
+                <strong>Cliente Ideal & Problema a Resolver:</strong>{' '}
+                {quote.briefing_answers?.cliente_ideal_problema || quote.briefing_answers?.publico_objetivo || 'Público general'}
+              </div>
+              <div>
+                <strong>Referencias / Competencia:</strong>{' '}
+                {quote.briefing_answers?.referencias_urls || quote.briefing_answers?.referencias || 'Sin referencias'}
+              </div>
+            </div>
           </div>
-          <div>
-            <strong>Rubro / Propuesta de Valor:</strong> {quote.briefing_answers?.rubro || 'No especificado'}
+
+          <div style={{ borderTop: '1px dashed #cbd5e1', paddingTop: '10px' }}>
+            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>
+              Bloque B: Alcance y Funcionalidades
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px' }}>
+              <div>
+                <strong>Tipo de Proyecto:</strong> {quote.briefing_answers?.tipo_proyecto || quote.selected_plan_name}
+              </div>
+              <div>
+                <strong>Autoadministración:</strong> {quote.briefing_answers?.autoadministracion || 'Autoadministrable por el cliente'}
+              </div>
+              <div style={{ gridColumn: '1 / -1' }}>
+                <strong>Integraciones Incluidas:</strong>{' '}
+                {quote.briefing_answers?.integraciones && quote.briefing_answers.integraciones.length > 0
+                  ? quote.briefing_answers.integraciones
+                      .map((k) => {
+                        const labels: Record<string, string> = {
+                          whatsapp: 'WhatsApp Directo',
+                          webpay: 'Webpay Plus Transbank / Pagos Online',
+                          facturacion: 'Conexión Facturación / Inventario',
+                          crm_analytics: 'Formularios a CRM / Analytics',
+                          couriers: 'Cotizador Envíos (Starken/Chilexpress)',
+                          login_usuarios: 'Login & Panel de Usuarios Privado',
+                        };
+                        return labels[k] || k;
+                      })
+                      .join(' • ')
+                  : 'Botón WhatsApp directo'}
+              </div>
+            </div>
           </div>
-          <div>
-            <strong>Público Objetivo:</strong> {quote.briefing_answers?.publico_objetivo || 'General'}
-          </div>
-          <div>
-            <strong>Estado de Logo / Marca:</strong> {quote.briefing_answers?.estado_logo || 'Por confirmar'}
-          </div>
-          <div>
-            <strong>Textos y Fotografías:</strong> {quote.briefing_answers?.estado_contenido || 'Por confirmar'}
-          </div>
-          <div>
-            <strong>Dominio y Hosting:</strong> {quote.briefing_answers?.dominio || 'Por confirmar'}
-          </div>
-          <div style={{ gridColumn: '1 / -1' }}>
-            <strong>Sitios de Referencia / Competencia:</strong>{' '}
-            {quote.briefing_answers?.referencias || 'Sin referencias adjuntas'}
+
+          <div style={{ borderTop: '1px dashed #cbd5e1', paddingTop: '10px' }}>
+            <div style={{ fontWeight: 800, color: '#0284c7', fontSize: '12px', textTransform: 'uppercase', marginBottom: '4px' }}>
+              Bloque C: Materiales y Contenidos
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px 16px' }}>
+              <div>
+                <strong>Logotipo / Identidad:</strong> {quote.briefing_answers?.estado_logo || 'Tiene logotipo'}
+              </div>
+              <div>
+                <strong>Textos y Fotos:</strong>{' '}
+                {quote.briefing_answers?.redaccion_fotos || quote.briefing_answers?.estado_contenido || 'Cliente entrega'}
+              </div>
+              <div>
+                <strong>Dominio y Hosting:</strong>{' '}
+                {quote.briefing_answers?.dominio_hosting || quote.briefing_answers?.dominio || 'Tiene ambos'}
+              </div>
+            </div>
           </div>
         </div>
 
